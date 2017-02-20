@@ -71,7 +71,7 @@ public class MostrarAcontecimientoActivity extends AppCompatActivity {
         final String INSTAGRAM = "instagram";
         final String LATITUD = "latitud";
         final String LONGITUD = "longitud";
-        String nombre = "", organizador = "", descripcion="", tipo="", portada="", inicio="", fin="", direccion="", localidad="", cod_postal="", provincia="", telefono="", email="", web="", facebook="", twitter="", instagram="";
+        String nombre = "", organizador = "", descripcion="", tipo="", portada="", inicio="", fin="", direccion="", localidad="", cod_postal="", provincia="", telefono="", email="", web="", facebook="", twitter="", instagram="", latitud="", longitud="";
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
         id = sharedPreferences.getString("id", "0");
@@ -79,7 +79,7 @@ public class MostrarAcontecimientoActivity extends AppCompatActivity {
         BBDDLocal bdlocal = new BBDDLocal(this.getApplicationContext(), Environment.getExternalStorageDirectory() + File.separator + "eventop.db", null, 2);
         SQLiteDatabase db = bdlocal.getReadableDatabase();
 
-        String[] campos = new String[] {NOMBRE, ORGANIZADOR, DESCRIPCION, TIPO, PORTADA, INICIO, FIN, DIRECCION, LOCALIDAD, COD_POSTAL, PROVINCIA, TELEFONO, EMAIL, WEB, FACEBOOK, TWITTER, INSTAGRAM};
+        String[] campos = new String[] {NOMBRE, ORGANIZADOR, DESCRIPCION, TIPO, PORTADA, INICIO, FIN, DIRECCION, LOCALIDAD, COD_POSTAL, PROVINCIA, TELEFONO, EMAIL, WEB, FACEBOOK, TWITTER, INSTAGRAM, LATITUD, LONGITUD};
         String[] args = new String[]{id};
 
         Cursor c = db.query("acontecimientos", campos, "id=?", args , null, null, null);
@@ -103,6 +103,8 @@ public class MostrarAcontecimientoActivity extends AppCompatActivity {
             facebook = c.getString(c.getColumnIndex(FACEBOOK));
             twitter = c.getString(c.getColumnIndex(TWITTER));
             instagram = c.getString(c.getColumnIndex(INSTAGRAM));
+            latitud = c.getString(c.getColumnIndex(LATITUD));
+            longitud = c.getString(c.getColumnIndex(LONGITUD));
 
 
         }else{

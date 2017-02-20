@@ -1,5 +1,10 @@
 package com.example.pc02.watshappening;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,6 +14,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.File;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -37,10 +44,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        final String LATITUD = "latitud";
+        final String LONGITUD = "longitud";
+        final String NOMBRE = "nombre";
+        String id="";
+        String nombre="";
+        double latitud=0, longitud=0;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        SharedPreferences sharedPreferences = this.getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("id", "0");
+
+
+        BBDDLocal bdlocal = new BBDDLocal(this.getApplicationContext(), Environment.getExternalStorageDirectory() + File.separator + "eventop.db", null, 2);
+        SQLiteDatabase db = bdlocal.getReadableDatabase();
+
+        String[] campos = new String[] {NOMBRE, LATITUD, LONGITUD};
+        String[] args = new String[]{id};
+
+        Cursor c = db.query("acontecimientos", campos, "id=?", args , null, null, null);
+
+        if(c.moveToFirst()){
+            latitud= c.getDouble(c.getColumnIndex(LATITUD));
+            longitud = c.getDouble(c.getColumnIndex(LONGITUD));
+            nombre = c.getString(c.getColumnIndex(NOMBRE));
+
+            if(latitud!=0&&longitud!=0){
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(latitud, longitud))
+                        .title(nombre));
+            }
+        }
+
+        googleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(38.149528, -4.789756))
+                    .title(nombre));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(40.916394, -5.765756))
+                .title(nombre));
+
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(41.546286, -2.020875))
+                .title(nombre));
+
+
+
+
     }
 }
