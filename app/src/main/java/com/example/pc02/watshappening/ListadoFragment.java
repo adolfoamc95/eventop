@@ -116,10 +116,10 @@ public class ListadoFragment extends ListFragment {
 
         // Crea los elementos a mostrar en la lista
         eventoItems = new ArrayList<EventoItem>();
-        eventoItems.add(new EventoItem("1", "Evento numero 1", "Este es el primer evento", "201610191000", "201610191300", "calle", "pueblo", "14530", "provincia", "latitud", "longitud"));
+        eventoItems.add(new EventoItem("1", "Evento de prueba", "Este es el primer evento", "201610191000", "201610191300", "calle", "pueblo", "14530", "provincia", "latitud", "longitud"));
         eventoItems.add(new EventoItem("2", "ABP en Educación Física. Los juegos de siempre: ¿Cómo podemos recuperar en el Colegio los juegos de nuestros mayores?", "Utilizar el Aprendizaje Basado en Proyectos para recuperar los juegos típicos de la infancia de los padres y abuelos de los alumnos del colegio", "201610191030", "201610211130", "vega n11", "Montemayor", "14530", "cordoba", "latitud", "longitud"));
         eventoItems.add(new EventoItem("3", "ABP en Educación Física. Los juegos de siempre: ¿Cómo podemos recuperar en el Colegio los juegos de nuestros mayores?", "Utilizar el Aprendizaje Basado en Proyectos para recuperar los juegos típicos de la infancia de los padres y abuelos de los alumnos del colegio", "201610191030", "201610211130", "", "", "", "", "latitud", "longitud"));
-        eventoItems.add(new EventoItem("4", "ABP en Educación Física. Los juegos de siempre: ¿Cómo podemos recuperar en el Colegio los juegos de nuestros mayores?", "Utilizar el Aprendizaje Basado en Proyectos para recuperar los juegos típicos de la infancia de los padres y abuelos de los alumnos del colegio", "201610191030", "201610211130", "", "", "", "", "latitud", "longitud"));
+
 
         // Crea el adaptador con los elementos y se lo asigna al ListView
         // Utiliza el layout predefinido de Android para la lista

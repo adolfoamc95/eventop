@@ -8,10 +8,12 @@ import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -68,27 +70,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             longitud = c.getDouble(c.getColumnIndex(LONGITUD));
             nombre = c.getString(c.getColumnIndex(NOMBRE));
 
+
             if(latitud!=0&&longitud!=0){
-                googleMap.addMarker(new MarkerOptions()
+                CameraUpdate camUpd1 =
+                        CameraUpdateFactory
+                                .newLatLngZoom(new LatLng(latitud, longitud), 4);
+                mMap.moveCamera(camUpd1);
+                mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(latitud, longitud))
                         .title(nombre));
             }
         }
 
-        googleMap.addMarker(new MarkerOptions()
+        if(nombre.equals("pepito")) {
+            mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(38.149528, -4.789756))
-                    .title(nombre));
+                    .title("Evento de prueba")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(40.916394, -5.765756))
-                .title(nombre));
-
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(41.546286, -2.020875))
-                .title(nombre));
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(40.916394, -5.765756))
+                    .title("ABP en Educación Física. Los juegos de siempre: ¿Cómo podemos recuperar en el Colegio los juegos de nuestros mayores?")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
 
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(41.546286, -2.020875))
+                    .title("ABP en Educación Física. Los juegos de siempre: ¿Cómo podemos recuperar en el Colegio los juegos de nuestros mayores?")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+        }
 
 
     }

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -24,6 +25,7 @@ public class MostrarAcontecimientoActivity extends AppCompatActivity {
 
     private String nameAct = this.getClass().getName();
     LinearLayout linearMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +37,29 @@ public class MostrarAcontecimientoActivity extends AppCompatActivity {
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MostrarEventoActivity.class);
-                startActivity(intent);
+                String id2;
+                SharedPreferences sharedPreferences1 = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
+                id2 = sharedPreferences1.getString("id", "0");
+                if(id2.equals("9")) {
+                    Intent intent = new Intent(getApplicationContext(), MostrarEventoActivity.class);
+                    startActivity(intent);
+                }else{
+                        Toast.makeText(getApplicationContext() , "Este acontecimiento no tiene eventos", Toast.LENGTH_SHORT).show();
+                    }
             }
         });
+
 
         Button button = (Button) findViewById(R.id.buttonMap);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(getApplicationContext(), MapsActivity.class);
-                startActivity(intent2);
-            }
+
+
+                    Intent intent2 = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(intent2);
+                }
+
         });
 
         linearMain = (LinearLayout) findViewById(R.id.linearMain);
